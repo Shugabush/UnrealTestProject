@@ -3,12 +3,21 @@
 
 #include "TPPlayer.h"
 
+#include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+
 // Sets default values
 ATPPlayer::ATPPlayer()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	Collision = CreateDefaultSubobject<UCapsuleComponent>("Collision");
+	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>("Mesh");
+	
+	Mesh->AttachToComponent(Collision, FAttachmentTransformRules::KeepRelativeTransform);
+
+	RootComponent = Collision;
 }
 
 // Called when the game starts or when spawned
