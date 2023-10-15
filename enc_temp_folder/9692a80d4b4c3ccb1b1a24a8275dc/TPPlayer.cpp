@@ -44,15 +44,10 @@ void ATPPlayer::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	// Transform movement to be relative to camera's direction
-	FVector camEulers = Camera->GetComponentRotation().Euler();
-
-	// I'm not sure why we have to add this offset, but it's the only way it will work properly
-	camEulers.Z -= 90;
-
-	FVector transformedMovement = FRotator::MakeFromEuler(camEulers).RotateVector(Movement);
+	FVector transformedMovement = Camera->GetComponentRotation().RotateVector(Movement);
 	transformedMovement.Z = 0;
 
-	Collision->SetAllPhysicsLinearVelocity((transformedMovement + Velocity) * MovementSpeed);
+	Collision->SetAllPhysicsLinearVelocity((Movement + Velocity) * MovementSpeed);
 }
 
 // Called to bind functionality to input
@@ -67,7 +62,7 @@ void ATPPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATPPlayer::HandleMoveRight(float axisValue)
 {
-	Movement.X = -axisValue;
+	Movement.X = axisValue;
 }
 
 void ATPPlayer::HandleMoveForward(float axisValue)
