@@ -13,5 +13,6 @@ UCLASS()
 class TESTPROJECT_API ATPGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+public:
+	ATPGameModeBase();
 };

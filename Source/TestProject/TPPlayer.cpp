@@ -3,6 +3,7 @@
 
 #include "TPPlayer.h"
 
+#include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
@@ -16,6 +17,11 @@ ATPPlayer::ATPPlayer()
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>("Mesh");
 	
 	Mesh->AttachToComponent(Collision, FAttachmentTransformRules::KeepRelativeTransform);
+
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	Camera->AttachToComponent(Collision, FAttachmentTransformRules::KeepRelativeTransform);
+
+	Camera->SetRelativeLocation(FVector(0, -5, 0));
 
 	RootComponent = Collision;
 }

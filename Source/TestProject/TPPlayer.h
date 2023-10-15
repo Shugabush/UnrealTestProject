@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 
+
 #include "GameFramework/Character.h"
 #include "TPPlayer.generated.h"
 
@@ -21,10 +22,13 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
-	UCapsuleComponent* Collision;
+	class UCapsuleComponent* Collision;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
-	USkeletalMeshComponent* Mesh;
+	class USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	class UCameraComponent* Camera;
 
 public:	
 	// Called every frame
