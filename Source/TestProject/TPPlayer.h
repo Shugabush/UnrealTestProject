@@ -17,9 +17,6 @@ public:
 	// Sets default values for this character's properties
 	ATPPlayer();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector Velocity;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,10 +37,14 @@ protected:
 	FVector Movement;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	FVector Velocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	float MovementSpeed = 100;
 
 	UFUNCTION()
 	virtual void HandleMoveRight(float axisValue);
+
 	UFUNCTION()
 	virtual void HandleMoveForward(float axisValue);
 
@@ -53,4 +54,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+	FVector GetMovement() const;
+	
+	virtual FVector GetVelocity() const override;
 };
