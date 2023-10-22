@@ -77,7 +77,7 @@ void ATPPlayer::HandleMoveForward(float axisValue)
 
 FVector ATPPlayer::GetMovement() const
 {
-	return Movement;
+	return Movement * MovementSpeed;
 }
 
 FVector ATPPlayer::GetVelocity() const
