@@ -40,7 +40,7 @@ protected:
 	FVector Velocity;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
-	float MovementSpeed = 100;
+	float MovementSpeed = 500;
 
 	UFUNCTION()
 	virtual void HandleMoveRight(float axisValue);
