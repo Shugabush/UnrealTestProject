@@ -2,13 +2,9 @@
 
 
 #include "TPGameModeBase.h"
+#include "TPPlayer.h"
 
 ATPGameModeBase::ATPGameModeBase()
 {
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Blueprints/BP_TPPlayer"));
-
-	if (PlayerPawnBPClass.Class != NULL)
-	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
+	DefaultPawnClass = ATPPlayer::StaticClass();
 }

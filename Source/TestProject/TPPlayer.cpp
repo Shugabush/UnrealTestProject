@@ -62,6 +62,9 @@ void ATPPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis(TEXT("Move Forward / Backward"), this, &ATPPlayer::HandleMoveForward);
 	PlayerInputComponent->BindAxis(TEXT("Move Right / Left"), this, &ATPPlayer::HandleMoveRight);
+	PlayerInputComponent->BindAxis(TEXT("Move Up / Down"), this, &ATPPlayer::HandleMoveUp);
+	PlayerInputComponent->BindAxis(TEXT("Look Up / Down Mouse"), this, &ATPPlayer::HandleLookUp);
+	PlayerInputComponent->BindAxis(TEXT("Look Left / Right Mouse"), this, &ATPPlayer::HandleLookRight);
 
 }
 
@@ -73,6 +76,36 @@ void ATPPlayer::HandleMoveRight(float axisValue)
 void ATPPlayer::HandleMoveForward(float axisValue)
 {
 	Movement.Y = axisValue;
+}
+
+void ATPPlayer::HandleMoveUp(float axisValue)
+{
+	Movement.Z = axisValue;
+}
+
+void ATPPlayer::HandleLookUp(float axisValue)
+{
+	LookRotationY += axisValue;
+}
+
+void ATPPlayer::HandleLookRight(float axisValue)
+{
+	LookRotationZ += axisValue;
+}
+
+FQuat ATPPlayer::GetLookRotationY() const
+{
+	return FQuat::MakeFromEuler(FVector(0, LookRotationY, 0));
+}
+
+FQuat ATPPlayer::GetLookRotationZ() const
+{
+	return FQuat::MakeFromEuler(FVector(0, 0, LookRotationZ));
+}
+
+FQuat ATPPlayer::GetLookRotation() const
+{
+	return GetLookRotationZ() * GetLookRotationY();
 }
 
 FVector ATPPlayer::GetMovement() const

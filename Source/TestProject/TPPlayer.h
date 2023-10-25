@@ -36,6 +36,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	FVector Movement;
 
+	float LookRotationZ;
+	float LookRotationY;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	FVector Velocity;
 
@@ -47,6 +50,23 @@ protected:
 
 	UFUNCTION()
 	virtual void HandleMoveForward(float axisValue);
+
+	UFUNCTION()
+	virtual void HandleMoveUp(float axisValue);
+
+	UFUNCTION()
+	virtual void HandleLookUp(float axisValue);
+
+	UFUNCTION()
+	virtual void HandleLookRight(float axisValue);
+
+	// Left / Right rotation
+	virtual FQuat GetLookRotationY() const;
+	// Up / Down rotation
+	virtual FQuat GetLookRotationZ() const;
+
+	UFUNCTION(BlueprintCallable, meta = (AllowPrivateAccess = true))
+	virtual FQuat GetLookRotation() const;
 
 public:	
 	// Called every frame
