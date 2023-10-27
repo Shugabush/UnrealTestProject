@@ -26,5 +26,6 @@ void ATPFreeFlyPlayer::Tick(float DeltaTime)
 	FQuat Rotation = GetLookRotation();
 
 	SetActorRotation(Rotation);
-	Collision->SetWorldRotation(Rotation);
+	Collision->SetAllPhysicsRotation(Rotation);
+	Collision->SetAllPhysicsAngularVelocityInDegrees(FVector::ZeroVector);
 }
