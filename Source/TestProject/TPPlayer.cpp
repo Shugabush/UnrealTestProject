@@ -35,7 +35,6 @@ ATPPlayer::ATPPlayer()
 void ATPPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame

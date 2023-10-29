@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+
 #include "TPGameModeBase.generated.h"
 
 /**
@@ -15,4 +16,9 @@ class TESTPROJECT_API ATPGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 public:
 	ATPGameModeBase();
+
+	class UCameraComponent* GetMainCamera() const;
+
+private:
+	class UCameraComponent* MainCamera;
 };
