@@ -4,7 +4,6 @@
 #include "TPGameModeBase.h"
 #include "TPPlayer.h"
 #include "Camera/CameraComponent.h"
-#include "Kismet/GameplayStatics.h"
 
 ATPGameModeBase::ATPGameModeBase()
 {
@@ -18,7 +17,7 @@ UCameraComponent* ATPGameModeBase::GetMainCamera() const
 
 void ATPGameModeBase::BeginPlay()
 {
-	Player = Cast<ATPPlayer>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	Player = Cast<ATPPlayer>(DefaultPawnClass->GetDefaultObject());
 
 	MainCamera = Player->GetComponentByClass<UCameraComponent>();
 }

@@ -17,10 +17,13 @@ APortal::APortal()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	PortalCapture = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCapture"));
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 
 	RenderPlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RenderPlane"));
+	RenderPlane->SetupAttachment(RootComponent);
+
+	PortalCapture = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCapture"));
+	PortalCapture->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -31,7 +34,6 @@ void APortal::BeginPlay()
 	UpdateTransforms();
 
 	GameMode = Cast<ATPGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-
 }
 
 // Called every frame
@@ -52,10 +54,11 @@ void APortal::Tick(float DeltaTime)
 	// Calculate portal capture position and rotation
 
 	FVector VirtualPosition = TransformPositionBetweenPortals(this, TargetPortal, MainCamera->GetComponentLocation());
-	FQuat VirtualRotation = TransformRotationBetweenPortals(this, TargetPortal, MainCamera->GetComponentRotation().Quaternion());
+	FQuat VirtualRotation = TransformRotationBetweenPortals(this, TargetPortal, MainCamera->GetComponentQuat());
 
 	// Position portal capture
 	PortalCapture->SetWorldLocationAndRotation(VirtualPosition, VirtualRotation);
+	GEngine->AddOnScreenDebugMessage(0, 1, FColor::Blue, MainCamera->GetComponentLocation().ToString());
 
 
 }

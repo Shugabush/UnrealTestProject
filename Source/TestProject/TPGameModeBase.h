@@ -19,6 +19,9 @@ public:
 
 	class UCameraComponent* GetMainCamera() const;
 
+	virtual void BeginPlay() override;
+
 private:
 	class UCameraComponent* MainCamera;
+	class ATPPlayer* Player;
 };
