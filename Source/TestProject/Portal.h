@@ -30,6 +30,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void Render(class UPortalRenderer* ViewCamera, float DeltaTime);
+
 	virtual void Destroyed() override;
 
 	static FVector TransformPositionBetweenPortals(APortal* Sender, APortal* Target, FVector Position);

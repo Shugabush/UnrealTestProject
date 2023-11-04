@@ -36,44 +36,12 @@ void APortal::BeginPlay()
 	UpdateTransforms();
 
 	GameMode = Cast<ATPGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-
-	SetActorTickInterval(0.02f);
 }
 
 // Called every frame
 void APortal::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (MainCamera == nullptr)
-	{
-		MainCamera = GameMode->GetMainCamera();
-	}
-
-	if (alwaysUpdateTransforms)
-	{
-		UpdateTransforms();
-	}
-
-	// Calculate portal capture position and rotation
-
-	FVector VirtualPosition = TransformPositionBetweenPortals(this, TargetPortal, MainCamera->GetComponentLocation());
-	FQuat VirtualRotation = TransformRotationBetweenPortals(this, TargetPortal, MainCamera->GetComponentQuat());
-
-	// Position portal capture
-	PortalCapture->SetWorldLocationAndRotation(VirtualPosition, VirtualRotation);
-
-	FMinimalViewInfo ViewInfo;
-
-	MainCamera->GetCameraView(DeltaTime, ViewInfo);
-
-	FMatrix ViewMatrix;
-	FMatrix ProjectionMatrix;
-	FMatrix ViewProjectionMatrix;
-
-	UGameplayStatics::GetViewProjectionMatrix(ViewInfo, ViewMatrix, ProjectionMatrix, ViewProjectionMatrix);
-
-	PortalCapture->CustomProjectionMatrix = ProjectionMatrix;
 }
 
 void APortal::Render(UPortalRenderer* ViewCamera, float DeltaTime)
