@@ -22,6 +22,14 @@ public:
 	virtual void BeginPlay() override;
 
 private:
+	UPROPERTY()
 	class UCameraComponent* MainCamera;
+	UPROPERTY()
 	class ATPPlayer* Player;
+
+	UPROPERTY()
+	TArray<class APortal*> Portals;
+
+	UFUNCTION()
+	virtual void OnPreRender();
 };

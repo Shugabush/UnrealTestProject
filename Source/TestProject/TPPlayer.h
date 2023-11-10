@@ -30,7 +30,7 @@ protected:
 	class USpringArmComponent* SpringArm;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-	class UCameraComponent* Camera;
+	class UPortalRenderer* Camera;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	FVector Movement;

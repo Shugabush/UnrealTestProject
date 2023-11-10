@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Portal.generated.h"
 
+class UCameraComponent;
 UCLASS()
 class TESTPROJECT_API APortal : public AActor
 {
@@ -15,13 +16,6 @@ public:
 	// Sets default values for this actor's properties
 	APortal();
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true))
-	APortal* TargetPortal;
-
-	FTransform NormalVisible;
-
-	FTransform NormalInvisible;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -30,34 +24,46 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Render(class UPortalRenderer* ViewCamera, float DeltaTime);
-
 	virtual void Destroyed() override;
 
-	static FVector TransformPositionBetweenPortals(APortal* Sender, APortal* Target, FVector Position);
-	static FQuat TransformRotationBetweenPortals(APortal* Sender, APortal* Target, FQuat Rotation);
-	static FRotator TransformRotationBetweenPortals(APortal* Sender, APortal* Target, FRotator Rotation);
+	UFUNCTION(BlueprintCallable)
+	virtual void RenderView(UCameraComponent* ViewCamera, const FVector RefPosition, const FQuat RefRotation);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static FVector TransformPositionBetweenPortals(const APortal* Sender, const APortal* Target, const FVector& Position);
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static FQuat TransformRotationBetweenPortals(const APortal* Sender, const APortal* Target, const FQuat& Rotation);
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static FVector TransformScaleBetweenPortals(const APortal* Sender, const APortal* Target, const FVector& Scale);
 
 private:
+
+	FTransform NormalVisible;
+	FTransform NormalInvisible;
+
 	void UpdateTransforms();
 
+	UPROPERTY()
 	class ATPGameModeBase* GameMode;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = true))
-	// Should this portal always update its translations?
-	// Leave this false if the portal will never move
-	bool alwaysUpdateTransforms = false;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = true))
-	class USceneCaptureComponent2D* PortalCapture;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = true))
-	class UCameraComponent* MainCamera;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
 	class UStaticMeshComponent* RenderPlane;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = true))
-	class UTextureRenderTarget2D* ViewthroughRenderTexture;
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	class UStaticMeshComponent* Mesh;
 
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	class UMaterial* PortalMatReference;
+
+	UPROPERTY()
+	class UMaterialInstanceDynamic* PortalMat;
+
+	UPROPERTY()
+	class UTextureRenderTarget2D* PortalTex;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	class USceneCaptureComponent2D* PortalCamera;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = true))
+	APortal* TargetPortal;
 };
