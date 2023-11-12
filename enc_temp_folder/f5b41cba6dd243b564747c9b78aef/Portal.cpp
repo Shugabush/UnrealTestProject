@@ -78,7 +78,6 @@ void APortal::CheckViewportSize()
 
 	if (ViewportSize.X != PortalTex->SizeX || ViewportSize.Y != PortalTex->SizeY)
 	{
-		GEngine->AddOnScreenDebugMessage(1, 0.5f, FColor::Blue, TEXT("RESIZING..."));
 		UKismetRenderingLibrary::ResizeRenderTarget2D(PortalTex, ViewportSize.X, ViewportSize.Y);
 	}
 }
@@ -107,7 +106,6 @@ void APortal::RenderView(UCameraComponent* ViewCamera, const FVector RefPosition
 	ViewCamera->GetCameraView(0.1f, ViewInfo);
 	UGameplayStatics::GetViewProjectionMatrix(ViewInfo, ViewMatrix, ProjectionMatrix, ViewProjectionMatrix);
 	TargetPortal->PortalCamera->CustomProjectionMatrix = ProjectionMatrix;
-	TargetPortal->PortalCamera->ProjectionType = ViewCamera->ProjectionMode;
 	CheckViewportSize();
 }
 

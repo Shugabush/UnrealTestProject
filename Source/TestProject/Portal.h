@@ -20,6 +20,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	virtual void SetClipPlane();
+
+	UFUNCTION()
+	virtual void CheckViewportSize();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
