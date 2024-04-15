@@ -73,7 +73,6 @@ void APortal::CheckViewportSize()
 	{
 		return;
 	}
-
 	GEngine->GameViewport->GetViewportSize(ViewportSize);
 
 	if (ViewportSize.X != PortalTex->SizeX || ViewportSize.Y != PortalTex->SizeY)
