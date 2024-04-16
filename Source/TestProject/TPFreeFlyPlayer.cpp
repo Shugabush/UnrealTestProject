@@ -4,7 +4,7 @@
 #include "TPFreeFlyPlayer.h"
 
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
+#include "TPPlayerComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -21,11 +21,11 @@ void ATPFreeFlyPlayer::Tick(float DeltaTime)
 	FVector transformedMovement = FQuat::MakeFromEuler(camEulers).RotateVector(FVector(Movement.X, Movement.Y, 0));
 	transformedMovement.Z += Movement.Z;
 
-	Collision->SetAllPhysicsLinearVelocity((transformedMovement) * MovementSpeed);
+	BaseComponent->SetAllPhysicsLinearVelocity((transformedMovement) * MovementSpeed);
 
 	FQuat Rotation = GetLookRotation();
 
 	SetActorRotation(Rotation);
-	Collision->SetAllPhysicsRotation(Rotation);
-	Collision->SetAllPhysicsAngularVelocityInDegrees(FVector::ZeroVector);
+	BaseComponent->SetAllPhysicsRotation(Rotation);
+	BaseComponent->SetAllPhysicsAngularVelocityInDegrees(FVector::ZeroVector);
 }

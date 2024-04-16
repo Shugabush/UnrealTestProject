@@ -51,7 +51,6 @@ void APortal::BeginPlay()
 
 	PortalTex = UKismetRenderingLibrary::CreateRenderTarget2D(this);
 
-	//PortalCamera->bUseCustomProjectionMatrix = false;
 	PortalMat->SetTextureParameterValue("BaseTexture", PortalTex);
 
 	TargetPortal->PortalCamera->TextureTarget = PortalTex;

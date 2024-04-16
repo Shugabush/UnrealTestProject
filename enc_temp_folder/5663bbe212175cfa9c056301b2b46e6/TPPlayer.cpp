@@ -40,7 +40,7 @@ void ATPPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	StartRotation = Mesh->GetComponentQuat();
+	StartRotation = BaseComponent->GetComponentQuat();
 	TargetRotation = StartRotation;
 }
 
@@ -62,7 +62,7 @@ void ATPPlayer::Tick(float DeltaTime)
 	{
 		TargetRotation = StartRotation * UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), GetActorLocation() + transformedMovement).Quaternion();
 
-		Mesh->SetWorldRotation(FQuat::FastLerp(Mesh->GetComponentQuat(), TargetRotation, RotationLerpSpeed * DeltaTime));
+		BaseComponent->SetWorldRotation(FQuat::FastLerp(Mesh->GetComponentQuat(), TargetRotation, RotationLerpSpeed * DeltaTime));
 	}
 
 	//UKismetSystemLibrary::SphereOverlapActors(GetWorld(), GetGroundCheckPosition(), GroundCheckRadius);

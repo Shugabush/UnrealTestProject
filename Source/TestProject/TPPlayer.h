@@ -15,13 +15,12 @@ class TESTPROJECT_API ATPPlayer : public APawn
 public:
 	// Sets default values for this character's properties
 	ATPPlayer();
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-	class UCapsuleComponent* Collision;
+	class UTPPlayerComponent* BaseComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	class USkeletalMeshComponent* Mesh;
@@ -37,6 +36,11 @@ protected:
 
 	float LookRotationZ;
 	float LookRotationY;
+	FQuat StartRotation;
+	FQuat TargetRotation;
+	
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	float RotationLerpSpeed = 5;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	FVector Velocity;
@@ -58,6 +62,14 @@ protected:
 
 	UFUNCTION()
 	virtual void HandleLookRight(float axisValue);
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	FVector GroundCheckOffset;
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	float GroundCheckRadius = 1;
+
+	UFUNCTION()
+	FVector GetGroundCheckPosition() const;
 
 	// Left / Right rotation
 	virtual FQuat GetLookRotationY() const;
