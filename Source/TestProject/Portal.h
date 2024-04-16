@@ -35,6 +35,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void RenderView(UCameraComponent* ViewCamera, const FVector RefPosition, const FQuat RefRotation);
 
+	UFUNCTION(BlueprintCallable)
+	virtual void SetProjectionMatrix(UCameraComponent* ViewCamera);
+
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	static FVector TransformPositionBetweenPortals(const APortal* Sender, const APortal* Target, const FVector& Position);
 	UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -67,7 +70,7 @@ private:
 	UPROPERTY()
 	class UTextureRenderTarget2D* PortalTex;
 
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	class USceneCaptureComponent2D* PortalCamera;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = true))

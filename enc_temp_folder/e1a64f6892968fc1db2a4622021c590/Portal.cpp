@@ -111,11 +111,15 @@ void APortal::RenderView(UCameraComponent* ViewCamera, const FVector RefPosition
 
 void APortal::SetProjectionMatrix(UCameraComponent* ViewCamera)
 {
-	auto* ViewportClient = GetWorld()->GetGameViewport();
+	FMinimalViewInfo ViewInfo;
+	FMatrix ViewMatrix;
+	FMatrix ProjectionMatrix;
+	FMatrix ViewProjectionMatrix;
+	ViewCamera->GetCameraView(0.05f, ViewInfo);
 
-	FSceneViewProjectionData ProjectionData;
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetLocalPlayer()->GetProjectionData(ViewportClient->Viewport, ProjectionData);
-	TargetPortal->PortalCamera->CustomProjectionMatrix = ProjectionData.ProjectionMatrix;
+	UGameplayStatics::GetViewProjectionMatrix(ViewInfo, ViewMatrix, ProjectionMatrix, ViewProjectionMatrix);
+	TargetPortal->PortalCamera->CustomProjectionMatrix = ProjectionMatrix;
+	TargetPortal->PortalCamera->ProjectionType = ViewCamera->ProjectionMode;
 }
 
 FVector APortal::TransformPositionBetweenPortals(const APortal* const Sender, const APortal* const Target, const FVector& Position)
