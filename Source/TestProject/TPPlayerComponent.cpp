@@ -14,6 +14,11 @@ UTPPlayerComponent::UTPPlayerComponent()
 	Player = Cast<ATPPlayer>(GetAttachParentActor());
 }
 
+ATPPlayer* UTPPlayerComponent::GetPlayer() const
+{
+	return Player;
+}
+
 
 // Called when the game starts
 void UTPPlayerComponent::BeginPlay()

@@ -16,11 +16,13 @@ public:
 	// Sets default values for this component's properties
 	UTPPlayerComponent();
 
+	class ATPPlayer* GetPlayer() const;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	class ATPPlayer* Player;
+	ATPPlayer* Player;
 
 public:	
 	// Called every frame

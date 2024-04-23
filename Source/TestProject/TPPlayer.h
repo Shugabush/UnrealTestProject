@@ -68,9 +68,6 @@ protected:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
 	float GroundCheckRadius = 1;
 
-	UFUNCTION()
-	FVector GetGroundCheckPosition() const;
-
 	// Left / Right rotation
 	virtual FQuat GetLookRotationY() const;
 	// Up / Down rotation
@@ -79,14 +76,20 @@ protected:
 	UFUNCTION(BlueprintCallable, meta = (AllowPrivateAccess = true))
 	virtual FQuat GetLookRotation() const;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	FVector GetGroundCheckPosition() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	float GetGroundCheckRadius() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FVector GetMovement() const;
 	
 	virtual FVector GetVelocity() const override;

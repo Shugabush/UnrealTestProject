@@ -112,11 +112,6 @@ void ATPPlayer::HandleLookRight(float axisValue)
 	LookRotationZ += axisValue;
 }
 
-FVector ATPPlayer::GetGroundCheckPosition() const
-{
-	return FVector();
-}
-
 FQuat ATPPlayer::GetLookRotationY() const
 {
 	return FQuat::MakeFromEuler(FVector(0, LookRotationY, 0));
@@ -130,6 +125,16 @@ FQuat ATPPlayer::GetLookRotationZ() const
 FQuat ATPPlayer::GetLookRotation() const
 {
 	return GetLookRotationZ() * GetLookRotationY();
+}
+
+FVector ATPPlayer::GetGroundCheckPosition() const
+{
+	return GetTransform().TransformPosition(GroundCheckOffset);
+}
+
+float ATPPlayer::GetGroundCheckRadius() const
+{
+	return GroundCheckRadius;
 }
 
 FVector ATPPlayer::GetMovement() const
